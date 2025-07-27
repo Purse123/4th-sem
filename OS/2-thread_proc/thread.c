@@ -39,7 +39,7 @@ int main() {
   s = pthread_mutex_init(&lock, NULL);
   if (s != 0)
     handle_error_en(s, "pthread_mutex_init error");
-  
+
   /*
     union pthread_attr_t
     {
@@ -48,6 +48,7 @@ int main() {
     };
   */
   // Structure that holds attributes for creating a thread.
+  // POSIX doesn't want to see __size array, it includes:
   // Detach state, stack size, stack address, scheduling policy and priority.
   pthread_attr_t attr;
 
