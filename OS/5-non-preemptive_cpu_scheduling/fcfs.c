@@ -57,5 +57,6 @@ int main() {
   }
 
   free(p);
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <inttypes.h>
 
 #define TRUE  1
 #define FALSE 0
@@ -68,5 +67,6 @@ int main() {
   }
 
   free(p);
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }
