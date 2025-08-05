@@ -27,6 +27,8 @@ q8: 8-bankers_dl_prevent.c
 	$(CC) $^ -o $@ $(LD)
 q9: 9-mvt_mft.c
 	$(CC) $^ -o $@ $(LD)
+q10: 10-paging.c
+	$(CC) $^ -o $@ $(LD)
 
 clean:
-	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9
+	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10
