@@ -17,6 +17,16 @@ sjf: 5-non-preemptive_cpu_scheduling/sjf.c
 	$(CC) $^ -o $@ $(LD)
 priority: 5-non-preemptive_cpu_scheduling/priority.c
 	$(CC) $^ -o $@ $(LD)
+q6a: 6-preemptive_scheduling/round_robin.c
+	$(CC) $^ -o $@ $(LD)
+q6b: 6-preemptive_scheduling/priority.c
+	$(CC) $^ -o $@ $(LD)
+q7: 7-bankers_dl_avoidance.c
+	$(CC) $^ -o $@ $(LD)
+q8: 8-bankers_dl_prevent.c
+	$(CC) $^ -o $@ $(LD)
+q9: 9-mvt_mft.c
+	$(CC) $^ -o $@ $(LD)
 
 clean:
-	rm *~ q2a q2b q3 q4 fcfs sjf priority
+	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9
