@@ -44,3 +44,31 @@ We determine if a system is in a safe state:
 	Finish[i]  = true
 - Repeat
 	If all processes are finished (Finish[i] == true), system is in a safe state
+
+## Paging
+1. logical/virtual memory: 
+   - memory address space used by programs.
+   - divided into fixed-size blocks called pages.
+2. Physical memory:
+   - Acutual RAM.
+   - divided into blocks of same size as page called frames.
+3. Page Table:
+   - Data structure used by OS to map logical pages to physical frames.
+
+**How does it work**
+1. Program is divided into pages by OS.
+2. Pages are loaded into available frames in physical memory.
+3. When CPU access memory address, Memory Management Unit:
+   - Looks up page number in page table.
+   - Finds corresponding frame number.
+   - Combine frame number with offset to access the exact physical address.
+
+**Example:**
+suppose:
+- page size       = 4kb
+- logical address = 10kb
+then 
+- page number = 10kb / 4kb = 2
+- offset      = 10kb % 4kb = 2 kb
+if page 2 is in frame 5:
+physical address = (frame 5) * 4 kb + 2 kb = 22 kb

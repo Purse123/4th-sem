@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to input memory details
-void inputMemoryDetails(int* memSize, int* frameSize, int* numFrames) {
+void inputMemoryDetails(int* mem_size, int* frame_size, int* frame_num) {
   printf("Enter total memory size (in bytes): ");
-  scanf("%d", memSize);
+  scanf("%d", mem_size);
   
   printf("Enter frame/page size (in bytes): ");
   scanf("%d", frameSize);
@@ -47,9 +46,9 @@ int translateAddress(int logicalAddress, int frameSize, int* pageTable, int numP
 }
 
 int main() {
-  int memSize, frameSize, numFrames;
-  int numPages, logicalAddress, physicalAddress;
-  int pageTable[100];  // Supports up to 100 pages
+  int mem_size, frame_size, frame_num;
+  int page_num, logicalAddress, physicalAddress;
+  int pageTable[100];
   
   inputMemoryDetails(&memSize, &frameSize, &numFrames);
   
