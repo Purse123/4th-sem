@@ -1,77 +1,76 @@
 #include <stdio.h>
+#include <assert.h>
 #include <stdlib.h>
+#include <inttypes.h>
+#include <unistd.h>
 
-void inputMemoryDetails(int* mem_size, int* frame_size, int* frame_num) {
-  printf("Enter total memory size (in bytes): ");
-  scanf("%d", mem_size);
-  
-  printf("Enter frame/page size (in bytes): ");
-  scanf("%d", frameSize);
-  
-  if (*frameSize <= 0) {
-    printf("Frame size must be greater than 0.\n");
-    exit(1);
-  }
-  
-  *numFrames = *memSize / *frameSize;
-  printf("Total frames in physical memory: %d\n", *numFrames);
-}
+#define B2KB(x) (x / 8)
+#define KB2B(x) (x * 8)
 
-// Function to input page table
-void inputPageTable(int* pageTable, int numPages, int numFrames) {
-  printf("Enter frame number for each page:\n");
-  
-  for (int i = 0; i < numPages; i++) {
-    printf("Page %d → Frame: ", i);
-    scanf("%d", &pageTable[i]);
-    
-    if (pageTable[i] < 0 || pageTable[i] >= numFrames) {
-      printf("Invalid frame number. Must be between 0 and %d.\n", numFrames - 1);
-      exit(1);
+typedef uint32_t u32;
+
+#define MEM_SIZE   KB2B(32)
+#define FRAME_SIZE KB2B(4)
+#define PAGE_SIZE  KB2B(4)
+
+#define FRAME_NUM  (MEM_SIZE / FRAME_SIZE)
+
+void inject2_pageTable(u32* ptable, u32 page_n, u32 frame_n) {
+  for (int i = 0; i < page_n; i++) {
+    printf("Enter frame no for page[%d]: ", i);
+    scanf("%d", &ptable[i]);
+
+    if (ptable[i] < 0 || ptable[i] >= frame_n) {
+      fprintf(stderr, "[ERROR] Invalid frame number.\n");
+      exit(-1);
     }
   }
 }
 
-// Function to translate logical address to physical address
-int translateAddress(int logicalAddress, int frameSize, int* pageTable, int numPages) {
-  int pageNumber = logicalAddress / frameSize;
-  int offset = logicalAddress % frameSize;
-  
-  if (pageNumber >= numPages) {
-    printf("Invalid logical address. Page number %d does not exist.\n", pageNumber);
-    exit(1);
+int logical2physical(int logicalAddress, u32* ptable, int page_n) {
+  int pageNumber = logicalAddress / FRAME_SIZE;
+  int offset = logicalAddress % FRAME_SIZE;
+
+  if (pageNumber >= page_n) {
+    fprintf(stderr, "[ERROR] Invalid logical address\n");
+    exit(-1);
   }
-  
-  return (pageTable[pageNumber] * frameSize) + offset;
+
+  return (ptable[pageNumber] * FRAME_SIZE) + offset;
 }
 
 int main() {
-  int mem_size, frame_size, frame_num;
-  int page_num, logicalAddress, physicalAddress;
-  int pageTable[100];
+  u32 page_num;
+  u32 pageTable[100];
   
-  inputMemoryDetails(&memSize, &frameSize, &numFrames);
+  assert(FRAME_NUM > 0);
+  fprintf(stdout, "[INFO] No of frames: %" PRIu32 "\n", FRAME_NUM);
+
+  fprintf(stdout, "Enter number of pages process: ");
+  scanf("%" SCNu32, &page_num);
   
-  printf("Enter number of pages in process: ");
-  scanf("%d", &numPages);
-  
-  if (numPages > numFrames) {
-    printf("Not enough frames for all pages. Maximum pages allowed: %d\n", numFrames);
-    return 1;
+  if (page_num > FRAME_NUM) {
+    fprintf(stderr, "[WARNING] More pages than frames\n");
+    return -1;
   }
-  
-  inputPageTable(pageTable, numPages, numFrames);
-  
-  printf("Enter a logical address (0 to %d): ", (numPages * frameSize) - 1);
+
+  inject2_pageTable(pageTable, page_num, FRAME_NUM);
+
+  /*
+    logical address:
+     - vpn `4 bits`
+     - offset `12 bits`
+  */
+  int logicalAddress, physicalAddress;
+  fprintf(stdout, "Enter logical address in bytes (0 to %"PRIu32"):", (page_num * FRAME_SIZE) - 1);
   scanf("%d", &logicalAddress);
-  
-  if (logicalAddress < 0 || logicalAddress >= numPages * frameSize) {
-    printf("Invalid logical address.\n");
-    return 1;
+
+  if (logicalAddress < 0 || logicalAddress >= page_num * FRAME_SIZE) {
+    fprintf(stderr, "[ERROR] Invalid logical address.\n");
+    return -1;
   }
-  
-  physicalAddress = translateAddress(logicalAddress, frameSize, pageTable, numPages);
-  printf("Logical Address %d → Physical Address %d\n", logicalAddress, physicalAddress);
-  
+
+  physicalAddress = logical2physical(logicalAddress, pageTable, page_num);
+  printf("Logical Address %d -> Physical Address %d\n", logicalAddress, physicalAddress);
   return 0;
 }
