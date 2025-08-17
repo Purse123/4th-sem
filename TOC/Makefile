@@ -25,6 +25,8 @@ q10: 10-npa_contain_010.c
 	$(CC) $^ -o $@
 q11: 11-pda-equal_01.c
 	$(CC) $^ -o $@
+q12: 12-equal_01.c
+	$(CC) $^ -o $@
 
 clean:
-	rm *~ q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11
+	rm *~ q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12
