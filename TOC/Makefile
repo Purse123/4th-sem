@@ -27,6 +27,8 @@ q11: 11-pda-equal_01.c
 	$(CC) $^ -o $@
 q12: 12-equal_01.c
 	$(CC) $^ -o $@
+q13: 13-TM_equal_0n1n.c
+	$(CC) $^ -o $@
 
 clean:
-	rm *~ q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12
+	rm *~ q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12 q13

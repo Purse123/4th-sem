@@ -41,23 +41,27 @@ int stack_pop(Stack *st) {
   return 1;
 }
 
-int pda_equal_01(const char *input) {
+int pda_0n1n(const char *input) {
   Stack st;
   stack_init(&st);
-
-  for (int i = 0; i < strlen(input); i++) {
+  int i, n = strlen(input);
+  int seen_one = 0;
+  
+  for (i = 0; i < n; i++) {
     char ch = input[i];
 
     switch (ch) {
     case '0':
-      (stack_top(&st) == '1') ? stack_pop(&st) : stack_push(&st, '0');
+      if (seen_one) return FALSE;
+      stack_push(&st, '0');
       break;
     case '1':
-      (stack_top(&st) == '0') ? stack_pop(&st) : stack_push(&st, '1');
+      seen_one = 1;
+      if (!stack_pop(&st)) return FALSE;
       break;
     default:
       printf("Invalid input\n");
-      return 0;
+      return FALSE;
     }
   }
   return stack_empty(&st);
@@ -68,10 +72,10 @@ int main() {
   printf("Enter binary string: ");
   scanf("%s", str);
 
-   if (pda_equal_01(str))
-     printf("\nAccepted\nString has equal number of 0's and 1's\n");
+   if (pda_0n1n(str))
+     printf("Accepted\n");
    else
-     printf("\nRejected\nString doesnot have equal number of 0's and 1's\n");
+     printf("\nRejected\nString not in form 0^n1^n\n");
 
   return 0;
 }
