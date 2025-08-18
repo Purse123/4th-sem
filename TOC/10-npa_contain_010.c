@@ -1,54 +1,57 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_STATES 4
-#define MAX_STR_LEN 100
+enum State { q0, q1, q2, q3 };
 
-enum { q0, q1, q2, q3 };
+int simulate_nfa(const char *str) {
+    int states[4] = {0}; // current active states
+    int count = 1;
+    states[0] = q0;
 
-int transitions[MAX_STATES][2][MAX_STATES] = {
-  { {q1, -1}, {q0, -1} },
-  { {q1, -1}, {q2, -1} },
-  { {q3, -1}, {q0, -1} },
-  { {q3, -1}, {q3, -1} }
-};
+    for (int i = 0; str[i]; i++) {
+        int sym = str[i] - '0';
+        int next[4], next_count = 0;
 
-int simulate_nfa(const char *input) {
-  int current[MAX_STATES], next[MAX_STATES];
-  int curr_count = 1, next_count, i, j, k;
-  current[0] = q0;
-  
-  for (i = 0; input[i] != '\0'; i++) {
-    int sym = input[i] - '0';
-    if (sym != 0 && sym != 1) return 0;
-    
-    next_count = 0;
-    for (j = 0; j < curr_count; j++) {
-      int state = current[j];
-      for (k = 0; transitions[state][sym][k] != -1; k++) {
-	next[next_count++] = transitions[state][sym][k];
-      }
+        for (int j = 0; j < count; j++) {
+            int s = states[j];
+            switch(s) {
+                case q0:
+                    if (sym == 0) { next[next_count++] = q0; next[next_count++] = q1; }
+                    else next[next_count++] = q0;
+                    break;
+                case q1:
+                    if (sym == 0) next[next_count++] = q1;
+                    else if (sym == 1) next[next_count++] = q2;
+                    break;
+                case q2:
+                    if (sym == 0) next[next_count++] = q3;
+                    else if (sym == 1) next[next_count++] = q0;
+                    break;
+                case q3:
+                    next[next_count++] = q3;
+                    break;
+            }
+        }
+
+        memcpy(states, next, next_count * sizeof(int));
+        count = next_count;
     }
-    
-    memcpy(current, next, next_count * sizeof(int));
-    curr_count = next_count;
-  }
-  
-  for (i = 0; i < curr_count; i++) {
-    if (current[i] == q3) return 1;
-  }
-  return 0;
+
+    for (int i = 0; i < count; i++)
+        if (states[i] == q3) return 1;
+
+    return 0;
 }
 
 int main() {
-  char str[MAX_STR_LEN];
-  printf("Enter a binary string: ");
-  scanf("%s", str);
-  
-  if (simulate_nfa(str))
-    printf("Accepted: contains substring 010\n");
-  else
-    printf("Rejected: does not contain substring 010\n");
-  
-  return 0;
+    char str[100];
+    printf("Enter binary string: ");
+    scanf("%s", str);
+
+    if (simulate_nfa(str))
+        printf("Accepted\n");
+    else
+        printf("Rejected\ndoesnot contain 010\n");
+
+    return 0;
 }

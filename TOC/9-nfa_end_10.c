@@ -31,7 +31,7 @@ int main() {
   scanf("%s", str);
   
   if (simulate_nfa(str))
-    printf("Accepted: string ends with 10\n");
+    printf("Accepted\n");
   else
     printf("Rejected: string does not end with 10\n");
   

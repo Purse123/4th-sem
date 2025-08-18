@@ -19,7 +19,7 @@ void inject2_pageTable(u32* ptable, u32 page_n, u32 frame_n) {
   for (int i = 0; i < page_n; i++) {
     printf("Enter frame no for page[%d]: ", i);
     scanf("%d", &ptable[i]);
-
+    
     if (ptable[i] < 0 || ptable[i] >= frame_n) {
       fprintf(stderr, "[ERROR] Invalid frame number.\n");
       exit(-1);

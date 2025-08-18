@@ -68,12 +68,12 @@ int pda_equal_zeros_ones(const char *s) {
 int main(void) {
   char s[1024];
   printf("Enter a binary string: ");
-  if (scanf("%1023s", s) != 1) return 1;
+  if (scanf("%s", s) != 1) return 1;
   
   if (pda_equal_zeros_ones(s))
-    printf("Accepted: equal number of 0's and 1's\n");
+    printf("Accepted\n");
   else
-    printf("Rejected: counts are not equal or input invalid\n");
+    printf("Rejected: counts are not equal\n");
   
   return 0;
 }
