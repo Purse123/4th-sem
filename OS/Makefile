@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 LD = -pthread
-all: q2
+all: q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13
 
 q2a: 2-thread_proc/thread.c
 	$(CC) $^ -o $@ $(LD)
@@ -29,6 +29,26 @@ q9: 9-mvt_mft.c
 	$(CC) $^ -o $@ $(LD)
 q10: 10-paging.c
 	$(CC) $^ -o $@ $(LD)
+q11: 11-first_fit.c
+	$(CC) $^ -o $@ $(LD)
+q12: 12-best_fit.c
+	$(CC) $^ -o $@ $(LD)
+q13: 13-worst_fit.c
+	$(CC) $^ -o $@ $(LD)
+q14: 14-fifo.c
+	$(CC) $^ -o $@ $(LD)
+q15: 15-leastRecentUsed.c
+	$(CC) $^ -o $@ $(LD)
+q16: 16-leastFrequentlyUsed.c
+	$(CC) $^ -o $@ $(LD)
+q17: 17-optimal_replacement.c
+	$(CC) $^ -o $@ $(LD)
+singleFile: 18-fileOrganize/single_level.c
+	$(CC) $^ -o $@ $(LD)
+twoLevel: 18-fileOrganize/two_level.c
+	$(CC) $^ -o $@ $(LD)
+multiLevel: 18-fileOrganize/hierarchical.c
+	$(CC) $^ -o $@ $(LD)
 
 clean:
-	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10
+	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 singleFile twoLevel multiLevel

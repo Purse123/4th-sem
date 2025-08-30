@@ -4,14 +4,14 @@
 #include <inttypes.h>
 #include <unistd.h>
 
-#define B2KB(x) (x / 8)
-#define KB2B(x) (x * 8)
-
 typedef uint32_t u32;
 
-#define MEM_SIZE   KB2B(32)
-#define FRAME_SIZE KB2B(4)
-#define PAGE_SIZE  KB2B(4)
+#define KB2BIT(x) ((x) * (1024 * 8))
+#define BIT2KB(x) ((x) / (1024 * 8))
+
+#define MEM_SIZE   KB2BIT(32)  // 32 KB
+#define FRAME_SIZE KB2BIT(4)   // 4 KB
+#define PAGE_SIZE  KB2BIT(4)   // 4 KB
 
 #define FRAME_NUM  (MEM_SIZE / FRAME_SIZE)
 
@@ -62,7 +62,7 @@ int main() {
      - offset `12 bits`
   */
   int logicalAddress, physicalAddress;
-  fprintf(stdout, "Enter logical address in bytes (0 to %"PRIu32"):", (page_num * FRAME_SIZE) - 1);
+  fprintf(stdout, "Enter logical address in bytes (0 to %"PRIu32"):", (page_num * PAGE_SIZE) - 1);
   scanf("%d", &logicalAddress);
 
   if (logicalAddress < 0 || logicalAddress >= page_num * FRAME_SIZE) {
