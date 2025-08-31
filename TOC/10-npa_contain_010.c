@@ -53,5 +53,6 @@ int main() {
     else
         printf("Rejected\ndoesnot contain 010\n");
 
+    printf("Programmed by: Pierce Neupane\n");
     return 0;
 }

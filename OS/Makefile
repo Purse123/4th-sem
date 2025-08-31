@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 LD = -pthread
-all: q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13
+all: q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 singleFile twoLevel multiLevel sequential indexed linked q20
 
 q2a: 2-thread_proc/thread.c
 	$(CC) $^ -o $@ $(LD)
@@ -49,6 +49,14 @@ twoLevel: 18-fileOrganize/two_level.c
 	$(CC) $^ -o $@ $(LD)
 multiLevel: 18-fileOrganize/hierarchical.c
 	$(CC) $^ -o $@ $(LD)
+sequential: 19-file_alloc_strat/sequential.c
+	$(CC) $^ -o $@ $(LD)
+indexed: 19-file_alloc_strat/index.c
+	$(CC) $^ -o $@
+linked: 19-file_alloc_strat/linked.c
+	$(CC) $^ -o $@
+q20: 20-disk_scheduling/disk_scheduling.c 20-disk_scheduling/main.c
+	$(CC) $^ -o $@
 
 clean:
-	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 singleFile twoLevel multiLevel
+	rm *~ q2a q2b q3 q4 fcfs sjf priority q6a q6b q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 singleFile twoLevel multiLevel sequential indexed linked q20

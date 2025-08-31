@@ -69,6 +69,7 @@ int main() {
 
   if (curr == q4) printf("Accepted\n");
   else printf("String rejected\n");
-  
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

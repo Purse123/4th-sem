@@ -34,6 +34,7 @@ int main() {
     printf("Accepted\n");
   else
     printf("Rejected: string does not end with 10\n");
-  
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

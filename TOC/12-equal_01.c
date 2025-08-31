@@ -77,5 +77,6 @@ int main() {
    else
      printf("\nRejected\nString not in form 0^n1^n\n");
 
+   printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

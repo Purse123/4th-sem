@@ -47,5 +47,6 @@ int main() {
   printf("\nSubstring: \n");
   substring(text);
 
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

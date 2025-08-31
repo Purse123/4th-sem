@@ -39,6 +39,7 @@ int main() {
   STATE res = dfa_prefix(str, p);
   if (res == q3) printf("String is accepted via DFA\n");
   else printf("String is rejected via DFA\n");
-  
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

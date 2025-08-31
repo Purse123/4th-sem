@@ -49,5 +49,7 @@ int main() {
   }
   
   fclose(fp);
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

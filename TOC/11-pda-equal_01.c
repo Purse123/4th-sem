@@ -74,6 +74,7 @@ int main(void) {
     printf("Accepted\n");
   else
     printf("Rejected: counts are not equal\n");
-  
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }

@@ -49,9 +49,10 @@ int main() {
     scanf("%s", str);
 
     if (simulate_nfa(str))
-        printf("Accepted: string starts with 01\n");
+      printf("Accepted: string starts with 01\n");
     else
-        printf("Rejected: string does not start with 01\n");
+      printf("Rejected: string does not start with 01\n");
 
+    printf("Programmed by: Pierce Neupane\n");
     return 0;
 }

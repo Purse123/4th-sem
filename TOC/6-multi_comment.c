@@ -70,5 +70,7 @@ int main() {
     "}\n";
   
   extract_multiline_comments(program);
+
+  printf("Programmed by: Pierce Neupane\n");
   return 0;
 }
