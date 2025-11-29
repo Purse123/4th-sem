@@ -91,6 +91,7 @@ int main() {
   
   printf("\nTotal Hits: %d\n", hits);
   printf("Total Faults: %d\n", page_faults);
-  
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

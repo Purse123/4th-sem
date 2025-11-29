@@ -36,7 +36,6 @@ void* routine(void* arg) {
   for (int i = 0; i < EAT_LIMIT; i++) {
     think(id);
 
-    // avoid deadlock via chg order
     if (id % 2 == 0) {
       pthread_mutex_lock(&forks[left]);
       pthread_mutex_lock(&forks[right]);
@@ -57,23 +56,20 @@ int main() {
   int i;
   int ids[NUM];
 
-  // init mutex
-  for (i = 0; i < NUM; i++) {
+  for (i = 0; i < NUM; i++)
     pthread_mutex_init (&forks[i], NULL);
-  }
 
   for (i = 0; i < NUM; i++) {
     ids[i] = i;
     pthread_create (&philosophers[i], NULL, routine, &ids[i]);
   }
 
-  for (i = 0; i < NUM; i++) {	/* join threads */
+  for (i = 0; i < NUM; i++)
     pthread_join (philosophers[i], NULL);
-  }
 
-  for (i = 0; i < NUM; i++) {
+  for (i = 0; i < NUM; i++)
     pthread_mutex_destroy (&forks[i]);
-  }
   
+  fprintf(stdout, "Programmed by Pierce Neupane\n");  
   return 0;
 }

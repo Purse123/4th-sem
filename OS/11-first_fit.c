@@ -47,5 +47,7 @@ int main() {
     else
       printf("Not Allocated\n");
   }
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

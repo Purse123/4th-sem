@@ -16,11 +16,11 @@ typedef uint32_t u32;
 #define FRAME_NUM  (MEM_SIZE / FRAME_SIZE)
 
 void inject2_pageTable(u32* ptable, u32 page_n, u32 frame_n) {
-  for (int i = 0; i < page_n; i++) {
+  for (u32 i = 0; i < page_n; i++) {
     printf("Enter frame no for page[%d]: ", i);
     scanf("%d", &ptable[i]);
     
-    if (ptable[i] < 0 || ptable[i] >= frame_n) {
+    if (ptable[i] >= frame_n) {
       fprintf(stderr, "[ERROR] Invalid frame number.\n");
       exit(-1);
     }
@@ -61,16 +61,18 @@ int main() {
      - vpn `4 bits`
      - offset `12 bits`
   */
-  int logicalAddress, physicalAddress;
+  u32 logicalAddress, physicalAddress;
   fprintf(stdout, "Enter logical address in bytes (0 to %"PRIu32"):", (page_num * PAGE_SIZE) - 1);
-  scanf("%d", &logicalAddress);
+  scanf("%" SCNu32, &logicalAddress);
 
-  if (logicalAddress < 0 || logicalAddress >= page_num * FRAME_SIZE) {
+  if (logicalAddress >= page_num * FRAME_SIZE) {
     fprintf(stderr, "[ERROR] Invalid logical address.\n");
     return -1;
   }
 
   physicalAddress = logical2physical(logicalAddress, pageTable, page_num);
   printf("Logical Address %d -> Physical Address %d\n", logicalAddress, physicalAddress);
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

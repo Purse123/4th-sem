@@ -144,6 +144,7 @@ int main() {
       
     case 5:
       printf("Exiting...\n");
+      fprintf(stdout, "Programmed by Pierce Neupane\n");
       return 0;
       
     default:

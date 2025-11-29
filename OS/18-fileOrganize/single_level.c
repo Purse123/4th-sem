@@ -93,5 +93,7 @@ int main() {
       fprintf(stderr, "Invalid choice\n");
     }
   }
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

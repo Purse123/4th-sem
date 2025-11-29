@@ -9,7 +9,7 @@ typedef struct Node {
   int isFile;                     
   struct Node *child[MAX_CHILD];
   int childCount;
-  struct Node *parent; // pointer to parent for "cd .."
+  struct Node *parent;
 } Node;
 
 Node* createNode(char *name, int isFile, Node *parent) {
@@ -35,7 +35,7 @@ void addChild(Node *parent, char *name, int isFile) {
 }
 
 void display(Node *root, int depth) {
-  for (int i = 0; i < depth; i++) printf("  "); // 2 spaces per level
+  for (int i = 0; i < depth; i++) printf("  ");
   printf("%s%s\n", root->name, root->isFile ? "" : "/");
   for (int i = 0; i < root->childCount; i++) {
     display(root->child[i], depth + 1);
@@ -62,13 +62,13 @@ void printPath(Node *curr) {
     printPath(curr->parent);
     printf("/%s", curr->name);
   } else {
-    printf("%s", curr->name);  // root
+    printf("%s", curr->name);
   }
 }
 
 int main() {
   Node *root = createNode("root", 0, NULL);
-  Node *curr = root;  // current directory
+  Node *curr = root;
   int choice;
   char name[20];
 
@@ -111,6 +111,7 @@ int main() {
 
       case 5:
         printf("Exiting...\n");
+	fprintf(stdout, "Programmed by Pierce Neupane\n");
         return 0;
 
       default:

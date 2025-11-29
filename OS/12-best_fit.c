@@ -24,7 +24,6 @@ void bestFit(int blockSize[], int numBlocks, int processSize[], int numProcesses
     }
   }
   
-  // Print results
   printf("\nProcess No.\tProcess Size\tBlock No.\n");
   for (int i = 0; i < numProcesses; i++) {
     printf("%d\t\t%d\t\t", i + 1, processSize[i]);
@@ -39,7 +38,6 @@ int main() {
   int blockSize[MAX_BLOCKS], processSize[MAX_PROCS];
   int numBlocks, numProcesses;
   
-  // Input memory blocks
   printf("Enter number of memory blocks: ");
   scanf("%d", &numBlocks);
   
@@ -49,7 +47,6 @@ int main() {
     scanf("%d", &blockSize[i]);
   }
   
-  // Input processes
   printf("\nEnter number of processes: ");
   scanf("%d", &numProcesses);
   
@@ -59,8 +56,8 @@ int main() {
     scanf("%d", &processSize[i]);
   }
   
-  // Call Best-Fit function
   bestFit(blockSize, numBlocks, processSize, numProcesses);
-  
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

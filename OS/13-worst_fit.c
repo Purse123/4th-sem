@@ -53,5 +53,7 @@ int main() {
   }
 
   worstFit(blockSize, numBlocks, processSize, numProcesses);
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

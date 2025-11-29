@@ -4,17 +4,15 @@
 #define MAX_P 10
 #define MAX_R 10
 
-int n, m; // n = processes, m = resources
+int n, m;
 int Allocation[MAX_P][MAX_R], Max[MAX_P][MAX_R], Need[MAX_P][MAX_R], Available[MAX_R];
 
-// Utility to calculate Need matrix
 void calculateNeed() {
   for (int i = 0; i < n; i++)
     for (int j = 0; j < m; j++)
       Need[i][j] = Max[i][j] - Allocation[i][j];
 }
 
-// Safety algorithm to check if system is in a safe state
 bool isSafe() {
   int Work[MAX_R];
   bool Finish[MAX_P] = {false};
@@ -50,7 +48,6 @@ bool isSafe() {
   return true;
 }
 
-// Attempt to request resources for a process
 bool requestResources(int pid, int request[]) {
   for (int i = 0; i < m; i++) {
     if (request[i] > Need[pid][i]) {
@@ -63,7 +60,6 @@ bool requestResources(int pid, int request[]) {
     }
   }
   
-  // Try allocating temporarily
   for (int i = 0; i < m; i++) {
     Available[i] -= request[i];
     Allocation[pid][i] += request[i];
@@ -74,7 +70,6 @@ bool requestResources(int pid, int request[]) {
     printf("Request granted. System remains in safe state.\n");
     return true;
   } else {
-    // Rollback
     for (int i = 0; i < m; i++) {
       Available[i] += request[i];
       Allocation[pid][i] -= request[i];
@@ -85,28 +80,22 @@ bool requestResources(int pid, int request[]) {
   }
 }
 
-// Print system state
 void printState() {
   printf("\nProcess\tAllocation\tMax\t\tNeed\n");
   for (int i = 0; i < n; i++) {
     printf("P%d\t", i);
     for (int j = 0; j < m; j++)
       printf("%d ", Allocation[i][j]);
-    printf("\t");
-    
+    printf("\t\t");
+
     for (int j = 0; j < m; j++)
       printf("%d ", Max[i][j]);
-    printf("\t");
-    
+    printf("\t\t");
+
     for (int j = 0; j < m; j++)
       printf("%d ", Need[i][j]);
     printf("\n");
   }
-  
-  printf("Available: ");
-  for (int i = 0; i < m; i++)
-    printf("%d ", Available[i]);
-  printf("\n");
 }
 
 int main() {
@@ -157,6 +146,7 @@ int main() {
       printf("Invalid choice!\n");
     }
   }
-  
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

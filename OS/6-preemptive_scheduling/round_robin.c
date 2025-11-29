@@ -38,7 +38,6 @@ void scheduleRoundRobin(process *p, int n, int quantum) {
 
   int *visited = calloc(n, sizeof(int));
 
-  // Enqueue first process
   for (int i = 0; i < n; i++) {
     if (p[i].arrivalTime == 0) {
       queue[rear++] = i;
@@ -48,7 +47,6 @@ void scheduleRoundRobin(process *p, int n, int quantum) {
 
   while (completed < n) {
     if (front == rear) {
-      // Idle time
       currentTime++;
       for (int i = 0; i < n; i++) {
 	if (!visited[i] && p[i].arrivalTime <= currentTime) {
@@ -66,7 +64,6 @@ void scheduleRoundRobin(process *p, int n, int quantum) {
       p[idx].remainingTime -= execTime;
       currentTime += execTime;
 
-      // Check for new arrivals during execution
       for (int i = 0; i < n; i++) {
 	if (!visited[i] && p[i].arrivalTime <= currentTime) {
 	  queue[rear++ % n] = i;
@@ -81,7 +78,7 @@ void scheduleRoundRobin(process *p, int n, int quantum) {
 	p[idx].isCompleted = TRUE;
 	completed++;
       } else {
-	queue[rear++ % n] = idx; // requeue the process
+	queue[rear++ % n] = idx;
       }
     }
   }
@@ -117,5 +114,6 @@ int main() {
   calculateAverageTimes(p, n);
   
   free(p);
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

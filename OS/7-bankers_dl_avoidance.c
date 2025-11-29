@@ -29,12 +29,10 @@ int main() {
   for (int i = 0; i < m; i++)
     scanf("%d", &available[i]);
 
-  // Calculate Need Matrix
   for (int i = 0; i < n; i++)
     for (int j = 0; j < m; j++)
       need[i][j] = max[i][j] - allocation[i][j];
 
-  // Safety Algorithm
   while (count < n) {
     int found = 0;
     for (int i = 0; i < n; i++) {
@@ -62,13 +60,13 @@ int main() {
     }
   }
 
-  // Safe State
   printf("\nSystem is in SAFE state.\nSafe Sequence: ");
   for (int i = 0; i < n; i++) {
     printf("P%d", safeSequence[i]);
     if (i != n - 1) printf(" -> ");
   }
   printf("\n");
-  
+
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   return 0;
 }

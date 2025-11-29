@@ -34,7 +34,6 @@ int main() {
   while (completed < n) {
     int idx = -1, minBT = 1e9;
 
-    // sjf
     for (int i = 0; i < n; i++) {
       if (!p[i].isCompleted && p[i].arrivalTime <= currentTime) {
 	if (p[i].burstTime < minBT) {

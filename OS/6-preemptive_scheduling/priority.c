@@ -96,6 +96,7 @@ int main() {
   printProcessTable(p, n);
   calculateAverageTimes(p, n);
 
+  fprintf(stdout, "Programmed by Pierce Neupane\n");
   free(p);
   return 0;
 }
